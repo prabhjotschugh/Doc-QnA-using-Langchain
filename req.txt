@@ -336,12 +336,3 @@ wcwidth==0.2.13
 webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.7.0
-Werkzeug==3.0.2
-wheel==0.43.0
-widgetsnbextension==4.0.10
-wrapt==1.16.0
-xarray==2024.5.0
-xlrd==2.0.1
-xxhash==3.4.1
-yarl==1.9.4
-zipp==3.18.1
