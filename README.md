@@ -11,5 +11,16 @@ Document QnA using Langchain is a robust solution designed to enable question an
 
 - Query Execution: Users can input their questions into the system, which then executes queries against the search index using the loaded question answering model. This process matches the query with relevant embeddings in the index to retrieve context-aware answers promptly.
 
+# Outputs 
+
+![1](https://github.com/prabhjotschugh/Doc-QnA-using-Langchain/assets/64200536/170fedd0-7b4c-46bf-8dc9-ce2169d04920)
+
+![2](https://github.com/prabhjotschugh/Doc-QnA-using-Langchain/assets/64200536/6a5afb0f-b467-404e-995b-2f3c75a7d2b6)
+
+
 # Demo
 https://github.com/prabhjotschugh/Doc-QnA-using-Langchain/assets/64200536/cdbd6493-3455-464b-ad12-82e1928fdf58
+
+https://github.com/prabhjotschugh/Doc-QnA-using-Langchain/assets/64200536/f9125848-5264-4bbf-be54-81f7954c004b
+
+
