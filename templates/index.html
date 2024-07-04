@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document QnA</title>
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="DocQnA Logo">
+            </a>
+            <h1 class="main-heading">Gen AI-Powered Document QnA</h1>
+            <div class="cta">
+                <a href="https://prabhjotschugh.github.io/" target="_blank">About Me</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="content">
+            <div class="card upload-card">
+                <h2>Upload Document</h2>
+                <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="upload-container">
+                        <input type="file" name="file" id="file" accept=".pdf">
+                        <button type="submit">Upload PDF</button>
+                    </div>
+                    <p id="upload-message" style="display: none;"></p> 
+                </form>
+            </div>
+            <div class="card qa-card">
+                <h2>Ask a Question</h2>
+                <form id="ask-form" action="/ask" method="post">
+                    <div style="display: flex; align-items: flex-end;">
+                        <input type="text" id="question-input" name="question" placeholder="Enter your question" style="flex: 1;">
+                        <button type="submit" style="margin-left: 10px;">Ask Question</button>
+                    </div>
+                    <p id="answer-status" style="display: none;">Thinking..</p> 
+                </form>
+                
+                <div id="answer-section" style="display: none;">
+                    <h2>Answer:</h2>
+                    <p id="answer"></p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="result">
+            {% if result %}
+                <h2>Result:</h2>
+                <p>{{ result }}</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p class="text-white">Designed with <span style="color: red;">&#10084;</span> by <b><a href="https://www.linkedin.com/in/prabhjot-singh-chugh/" style="border:none; outline:none; text-decoration:none; color:inherit;">Prabhjot Singh</a></b></p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const uploadForm = document.getElementById("upload-form");
+            const uploadMessage = document.getElementById("upload-message");
+            const askForm = document.getElementById("ask-form");
+            const questionInput = document.getElementById("question-input");
+            const answerSection = document.getElementById("answer-section");
+            const answerElement = document.getElementById("answer");
+            const answerStatus = document.getElementById("answer-status");
+            const qaCard = document.querySelector(".qa-card");
+
+            uploadForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                uploadMessage.innerText = "Uploading...";
+                uploadMessage.style.display = "block";
+
+                const formData = new FormData(uploadForm);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    uploadMessage.innerText = data.message;
+                    uploadForm.reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    uploadMessage.innerText = "Error uploading file.";
+                });
+            });
+
+            askForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const formData = new FormData(askForm);
+
+                answerStatus.style.display = "block";
+                answerElement.innerText = ""; 
+                answerSection.style.display = "none";
+                qaCard.classList.remove("answered"); 
+
+                fetch('/ask', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    answerElement.innerText = data.answer;
+                    answerSection.style.display = "block"; 
+                    answerStatus.style.display = "none"; 
+                    qaCard.classList.add("answered"); 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
