@@ -137,9 +137,6 @@ keyring==25.1.0
 kiwisolver==1.4.5
 langchain==0.2.6
 langchain-community==0.2.6
-langchain-core
-langchain-openai
-langchain-text-splitters==0.2.2
 langdetect==1.0.9
 langsmith==0.1.83
 layoutparser==0.3.4
